@@ -139,5 +139,101 @@
             options: optionsPie
         });
     </script>
+
+    {{-- <script>
+        var resultados = {!! json_encode($resultados) !!};
+        
+        // Organizando os dados por mês e consultor
+        var dataPorMes = {};
+        resultados.forEach(consultor => {
+            var mes = consultor.mes_referencia;
+            if (!dataPorMes[mes]) {
+                dataPorMes[mes] = [];
+            }
+            dataPorMes[mes].push({
+                consultor: consultor.no_contato,
+                receita: consultor.receita
+            });
+        });
+
+        // Obtendo a referência para o elemento canvas do gráfico de linhas
+        var ctxLine = document.getElementById('myLineChart').getContext('2d');
+
+        // Dados do gráfico de linhas
+        var datasetsLine = Object.keys(dataPorMes).map((mes, index) => ({
+            label: mes,
+            data: dataPorMes[mes].map(consultor => consultor.receita),
+            borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.3)`,
+            backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.5)`,
+            borderWidth: 2
+        }));
+
+        var dataLine = {
+            labels: Object.keys(dataPorMes).map(mes => dataPorMes[mes][0].consultor),
+            datasets: datasetsLine
+        };
+
+        // Configurações do gráfico de linhas
+        var optionsLine = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'category',
+                    labels: dataLine.labels
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        // Criando o gráfico de linhas
+        var myLineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: dataLine,
+            options: optionsLine
+        });
+
+        // Obtendo a referência para o elemento canvas do gráfico de pizza
+        var ctxPie = document.getElementById('myPieChart').getContext('2d');
+
+        // Dados do gráfico de pizza
+        var dataPie = {
+            labels: Object.keys(dataPorMes).map(mes => mes),
+            datasets: [{
+                data: Object.keys(dataPorMes).map(mes => {
+                    // Calcula o total de receita para cada mês
+                    var totalReceita = dataPorMes[mes].reduce((acc, consultor) => acc + consultor.receita, 0);
+                    return totalReceita;
+                }),
+                backgroundColor: ['MistyRose', 'Honeydew', 'LightCyan', 'PeachPuff', 'Lavender', 'Thistle', 'LemonChiffon', 'Cornsilk', 'PaleTurquoise'],
+            }]
+        };
+
+        // Configurações do gráfico de pizza
+        var optionsPie = {
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        var total = dataPie.datasets[0].data.reduce((acc, val) => acc + val, 0);
+                        var percentage = ((value / total) * 100).toFixed(2) + '%';
+                        return percentage;
+                    },
+                    color: '#fff',
+                    anchor: 'end',
+                    align: 'start',
+                }
+            }
+        };
+
+        // Criando o gráfico de pizza
+        var myPieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: dataPie,
+            options: optionsPie
+        });
+    </script> --}}
 </body>
 </html>
